@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <VersionPrefix Condition="'$(APPVEYOR_REPO_TAG_NAME)' != ''">$(APPVEYOR_REPO_TAG_NAME)</VersionPrefix>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">1.0.1</VersionPrefix>
+    <VersionSuffix Condition="'$(CI)' == ''">local</VersionSuffix>
+    <VersionSuffix Condition="'$(CI)' != '' AND '$(APPVEYOR_REPO_TAG_NAME)' == ''">ci$(APPVEYOR_BUILD_NUMBER)</VersionSuffix>
+    <Authors>jkoritzinsky</Authors>
+    <Copyright>(c) 2018 Jeremy Koritzinsky</Copyright>
+    <PackageLicenseUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM</PackageProjectUrl>
+    <Tags>SharpGen;COM</Tags>
+    <RepositoryUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM</RepositoryUrl>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+</Project>
