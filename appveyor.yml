@@ -7,8 +7,8 @@ environment:
   NUGET_API_KEY:
     secure: 4WMsxFFj1s1R+uO8E96HqveIJM77lMWjcWhUnfpXslepnAMlPVigu/SPKnd4aCQn
 
-artifacts:
-  - path: '**\*.nupkg'
+build:
+  publish_nuget: true
 
 deploy:
 - provider: NuGet
