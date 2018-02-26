@@ -4,19 +4,20 @@
     <TargetFramework>netstandard1.1</TargetFramework>
     <RootNamespace>SharpGen.Runtime</RootNamespace>
     <Description>C# COM Interop classes for use with SharpGenTools generated libraries</Description>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <SharpGenGenerateDoc>true</SharpGenGenerateDoc>
   </PropertyGroup>
 
   <ItemGroup>
     <SharpGenMapping Include="Mapping.xml" />
     <PackageReference Include="System.Memory" Version="4.4.0-preview2-25405-01" />
-    <PackageReference Include="SharpGen.Doc.Msdn.Tasks" Version="1.0.0">
+    <PackageReference Include="SharpGen.Doc.Msdn.Tasks" Version="1.0.1">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="SharpGenTools.Sdk" Version="1.0.0">
+    <PackageReference Include="SharpGenTools.Sdk" Version="1.0.1">
         <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="SharpGen.Runtime" Version="1.0.0" />
+    <PackageReference Include="SharpGen.Runtime" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
