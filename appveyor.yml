@@ -9,11 +9,11 @@ environment:
 
 configuration: Release
 
-build:
-  project: SharpGen.Runtime.COM.sln
-  publish_nuget: true
-  parallel: true
-  verbosity: minimal
+build_script:
+- cmd: msbuild /m /restore /t:Build;Pack /v:minimal
+
+artifacts:
+- path: '**/*.nupkg'
 
 deploy:
 - provider: NuGet
