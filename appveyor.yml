@@ -7,8 +7,13 @@ environment:
   NUGET_API_KEY:
     secure: 4WMsxFFj1s1R+uO8E96HqveIJM77lMWjcWhUnfpXslepnAMlPVigu/SPKnd4aCQn
 
+configuration: Release
+
 build:
+  project: SharpGen.Runtime.COM.sln
   publish_nuget: true
+  parallel: true
+  verbosity: minimal
 
 deploy:
 - provider: NuGet
