@@ -99,7 +99,8 @@ namespace SharpGen.Runtime
         public virtual T QueryInterface<T>() where T : ComObject
         {
             IntPtr parentPtr;
-            this.QueryInterface(typeof(T).GetTypeInfo().GUID, out parentPtr);
+            var result = this.QueryInterface(typeof(T).GetTypeInfo().GUID, out parentPtr);
+            result.CheckError();
             return FromPointer<T>(parentPtr);
         }
 

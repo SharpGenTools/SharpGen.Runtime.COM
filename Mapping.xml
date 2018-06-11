@@ -25,7 +25,7 @@
   <assembly>SharpGen.Runtime.COM</assembly>
 
 
-  <sdk name="WindowsSdk" version="10.0.15063.0" />
+  <sdk name="WindowsSdk" version="10.0.16299.0" />
   <sdk name="StdLib" />
 
   <include-prolog>
@@ -161,6 +161,7 @@
     <context>Unknwnbase</context>
     <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" callback-visibility="public" />
     <map method="IUnknown::.*" keep-implement-public="true" />
+    <map method="IUnknown::QueryInterface" check="false" />
     <context-clear/>
 
     <!-- Map IStream -->
