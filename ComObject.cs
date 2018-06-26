@@ -30,18 +30,12 @@ namespace SharpGen.Runtime
     public partial class ComObject
     {
         /// <summary>
-        /// Logs a warning of a possible memory leak when <see cref="Configuration.EnableObjectTracking" /> is enabled.
-        /// Default uses <see cref="System.Diagnostics.Debug"/>.
-        /// </summary>
-        public static Action<string> LogMemoryLeakWarning = (warning) => System.Diagnostics.Debug.WriteLine(warning);
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ComObject"/> class from a IUnknown object.
         /// </summary>
         /// <param name="iunknowObject">Reference to a IUnknown object</param>
-        public ComObject(object iunknowObject)
+        public ComObject(object iunknownObject)
         {
-            NativePointer = Marshal.GetIUnknownForObject(iunknowObject);
+            NativePointer = Marshal.GetIUnknownForObject(iunknownObject);
         }
 
         /// <summary>

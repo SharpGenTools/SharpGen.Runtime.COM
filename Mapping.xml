@@ -115,12 +115,15 @@
     <bind from="BOOL" to="SharpGen.Runtime.Win32.RawBool"/>
     <bind from="HANDLE" to="System.IntPtr" />
     <bind from="HRESULT" to="SharpGen.Runtime.Result" />
-    <bind from="SIZE_T" to="SharpGen.Runtime.PointerSize" marshal="System.IntPtr"/>
-    <bind from="SSIZE_T" to="SharpGen.Runtime.PointerSize" marshal="System.IntPtr"/>
+    <bind from="SIZE_T" to="SharpGen.Runtime.PointerSize" />
+    <bind from="SSIZE_T" to="SharpGen.Runtime.PointerSize" />
     <bind from="MSG" to="SharpGen.Runtime.Win32.NativeMessage" />
     <bind from="ULARGE_INTEGER" to="System.UInt64" />
     <bind from="LARGE_INTEGER" to="System.Int64" />
     <bind from="FILETIME" to="System.Int64" />
+    <bind from="DWORD" to="System.Int32" />
+    <bind from="ULONG" to="System.UInt32" />
+    <bind from="LONG" to="System.Int32" />
 
     <bind from="SECURITY_ATTRIBUTES" to="SharpGen.Runtime.Win32.SecurityAttributes"/>
 
@@ -159,7 +162,7 @@
     <context-clear/>
 
     <context>Unknwnbase</context>
-    <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" callback-visibility="public" />
+    <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" callback-visibility="public" shadow-name="SharpGen.Runtime.ComObjectShadow" vtbl-name="SharpGen.Runtime.ComObjectShadow.ComObjectVtbl" />
     <map method="IUnknown::.*" keep-implement-public="true" />
     <map method="IUnknown::QueryInterface" check="false" />
     <context-clear/>
@@ -183,12 +186,12 @@
     <map enum-item="STATFLAG_NONAME" name="NoName"/>
     <remove enum-item="STATFLAG_NOOPEN"/>
 
-    <map interface="ISequentialStream" name="IStreamBase" callback-visibility="public" callback="true" callback-dual="true" callback-name="ComStreamBase"/>
+    <map interface="ISequentialStream" name="IStreamBase" callback-visibility="public" callback="true" callback-dual="true" callback-name="ComStreamBase" autogen-shadow="true" />
     <map param="ISequentialStream::Read::pcbRead" return="true"/>
     <map param="ISequentialStream::Write::pcbWritten" return="true"/>
     <map method="ISequentialStream::.*" keep-implement-public="true"/>
 
-    <map interface="IStream" name="IStream" callback-visibility="public" callback="true" callback-dual="true" callback-name="ComStream"/>
+    <map interface="IStream" name="IStream" callback-visibility="public" callback="true" callback-dual="true" callback-name="ComStream" autogen-shadow="true" />
     <map param="IStream::Seek::dwOrigin" type="SHARPGEN_RUNTIME_SEEKORIGIN"/>
     <map param="IStream::Seek::plibNewPosition" return="true"/>
     <map param="IStream::CopyTo::pcbRead" attribute="out" return="true"/>
@@ -199,7 +202,7 @@
     <map param="IStream::Stat::pstatstg" attribute="out" return="true"/>
     <map param="IStream::Stat::grfStatFlag" type="STATFLAG"/>
     <map param="IStream::Clone::ppstm" return="true"/>
-    <map method="IStream::.*" keep-implement-public="true"/>
+    <map method="IStream::.*" keep-implement-public="true" property="false" />
 
     <context-clear/>
 
