@@ -93,7 +93,7 @@ namespace SharpGen.Runtime.Win32
                                     var buffer = new byte[(int)variantValue.recordValue.RecordInfo];
                                     if (buffer.Length > 0)
                                     {
-                                        MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<byte>(buffer), buffer.Length);
+                                        MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<byte>(buffer), buffer.Length);
                                     }
                                     return buffer;
                                 }
@@ -146,70 +146,70 @@ namespace SharpGen.Runtime.Win32
                                 unsafe
                                 {
                                     var array = stackalloc RawBool[size];
-                                    var span = new Span<RawBool>(array, size);
+                                    var span = new ReadOnlySpan<RawBool>(array, size);
                                     MemoryHelpers.Read(variantValue.recordValue.RecordPointer, span, size);
                                     return RawBoolHelpers.ConvertToBoolArray(span);
                                 }
                             case VariantElementType.Byte:
                                 {
                                     var array = new sbyte[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<sbyte>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<sbyte>(array), size);
                                     return array;
                                 }
                             case VariantElementType.UByte:
                                 {
                                     var array = new byte[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<byte>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<byte>(array), size);
                                     return array;
                                 }
                             case VariantElementType.UShort:
                                 {
                                     var array = new ushort[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<ushort>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<ushort>(array), size);
                                     return array;
                                 }
                             case VariantElementType.Short:
                                 {
                                     var array = new short[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<short>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<short>(array), size);
                                     return array;
                                 }
                             case VariantElementType.UInt:
                             case VariantElementType.UInt1:
                                 {
                                     var array = new uint[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<uint>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<uint>(array), size);
                                     return array;
                                 }
                             case VariantElementType.Int:
                             case VariantElementType.Int1:
                                 {
                                     var array = new int[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<int>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<int>(array), size);
                                     return array;
                                 }
                             case VariantElementType.ULong:
                                 {
                                     var array = new ulong[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<ulong>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<ulong>(array), size);
                                     return array;
                                 }
                             case VariantElementType.Long:
                                 {
                                     var array = new long[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<long>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<long>(array), size);
                                     return array;
                                 }
                             case VariantElementType.Float:
                                 {
                                     var array = new float[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<float>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<float>(array), size);
                                     return array;
                                 }
                             case VariantElementType.Double:
                                 {
                                     var array = new double[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<double>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<double>(array), size);
                                     return array;
                                 }
                             case VariantElementType.BinaryString:
@@ -242,7 +242,7 @@ namespace SharpGen.Runtime.Win32
                             case VariantElementType.Pointer:
                                 {
                                     var array = new IntPtr[size];
-                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new Span<IntPtr>(array), size);
+                                    MemoryHelpers.Read(variantValue.recordValue.RecordPointer, new ReadOnlySpan<IntPtr>(array), size);
                                     return array;
                                 }
                             case VariantElementType.FileTime:
