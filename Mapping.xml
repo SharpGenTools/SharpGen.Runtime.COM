@@ -24,8 +24,7 @@
   <namespace>SharpGen.Runtime</namespace>
   <assembly>SharpGen.Runtime.COM</assembly>
 
-
-  <sdk name="WindowsSdk" version="10.0.16299.0" />
+  <sdk name="WindowsSdk" version="10.0.17763.0" />
   <sdk name="StdLib" />
 
   <include-prolog>
