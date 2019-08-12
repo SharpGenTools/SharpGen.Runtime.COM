@@ -33,7 +33,7 @@ namespace SharpGen.Runtime
         {
             output = Callback.Shadow.Find(guid);
 
-            if (output == null)
+            if (output == IntPtr.Zero)
             {
                 return Result.NoInterface.Code;
             }
