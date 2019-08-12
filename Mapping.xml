@@ -144,7 +144,6 @@
     <bind from="IPropertyStore" to="SharpGen.Runtime.ComObject"/>
     <bind from="IPropertyBag2" to="SharpGen.Runtime.Win32.PropertyBag"/>
     <bind from="IClassFactory" to="SharpGen.Runtime.ComObject"/>
-    <bind from="IEnumUnknown" to="SharpGen.Runtime.ComObject"/>
     <bind from="IEnumString" to="SharpGen.Runtime.ComObject"/>
     <bind from="INamedPropertyStore" to="SharpGen.Runtime.ComObject"/>
 
