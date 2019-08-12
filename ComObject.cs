@@ -196,6 +196,24 @@ namespace SharpGen.Runtime
             NativePointer = parentPtr;
         }
 
+        // Called with old ptr
+        protected override unsafe void NativePointerUpdating()
+        {
+            // make Release when dropping the pointer
+            if (_nativePointer != null)
+                Release();
+            base.NativePointerUpdating();
+        }
+
+        // Called with new ptr
+        protected override unsafe void NativePointerUpdated(IntPtr oldNativePointer)
+        {
+            // when taking new pointer need to make AddRef
+            if (_nativePointer != null)
+                AddRef();
+            base.NativePointerUpdated(oldNativePointer);
+        }
+        
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources
         /// </summary>
