@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2010-2014 SharpDX - Alexandre Mutel
+// Copyright (c) 2010-2014 SharpDX - Alexandre Mutel
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -95,7 +95,7 @@ namespace SharpGen.Runtime
             IntPtr parentPtr;
             var result = this.QueryInterface(typeof(T).GetTypeInfo().GUID, out parentPtr);
             result.CheckError();
-            return FromPointer<T>(parentPtr);
+            return MarshallingHelpers.FromPointer<T>(parentPtr);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace SharpGen.Runtime
             var guid = typeof(T).GetTypeInfo().GUID;
             IntPtr pointerT;
             var result = (Result)Marshal.QueryInterface(comPointer, ref guid, out pointerT);
-            return (result.Failure) ? null : FromPointer<T>(pointerT);
+            return (result.Failure) ? null : ComMarshallingHelpers.FromPointer<T>(pointerT);
         }
 
         ///<summary>
@@ -181,7 +181,7 @@ namespace SharpGen.Runtime
         /// <unmanaged-short>IUnknown::QueryInterface</unmanaged-short>
         public virtual T QueryInterfaceOrNull<T>() where T : ComObject
         {
-            return FromPointer<T>(QueryInterfaceOrNull(typeof(T).GetTypeInfo().GUID));
+            return ComMarshallingHelpers.FromPointer<T>(QueryInterfaceOrNull(typeof(T).GetTypeInfo().GUID));
         }
 
         ///<summary>
