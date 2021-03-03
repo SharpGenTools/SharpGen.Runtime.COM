@@ -28,7 +28,7 @@ namespace SharpGen.Runtime.Win32
     public class ComStreamProxy : CallbackBase, IStream
     {
         private Stream sourceStream;
-        byte[] tempBuffer = new byte[0x1000];
+        private readonly byte[] tempBuffer = new byte[0x1000];
 
         public ComStreamProxy(Stream sourceStream)
         {
@@ -41,14 +41,16 @@ namespace SharpGen.Runtime.Win32
 
             while (numberOfBytesToRead > 0)
             {
-                uint countRead = (uint)Math.Min(numberOfBytesToRead, tempBuffer.Length);
-                uint count = (uint)sourceStream.Read(tempBuffer, 0, (int)countRead);
+                var countRead = (uint) Math.Min(numberOfBytesToRead, tempBuffer.Length);
+                var count = (uint) sourceStream.Read(tempBuffer, 0, (int) countRead);
                 if (count == 0)
                     return totalRead;
-                MemoryHelpers.Write(new IntPtr(totalRead + (byte*)buffer), new Span<byte>(tempBuffer), (int)count);
+
+                MemoryHelpers.Write(new IntPtr(totalRead + (byte*) buffer), new Span<byte>(tempBuffer), (int) count);
                 numberOfBytesToRead -= count;
                 totalRead += count;
             }
+
             return totalRead;
         }
 
@@ -58,18 +60,19 @@ namespace SharpGen.Runtime.Win32
 
             while (numberOfBytesToWrite > 0)
             {
-                uint countWrite = (uint)Math.Min(numberOfBytesToWrite, tempBuffer.Length);
-                MemoryHelpers.Read(new IntPtr(totalWrite + (byte*)buffer), new ReadOnlySpan<byte>(tempBuffer), (int)countWrite);
-                sourceStream.Write(tempBuffer, 0, (int)countWrite);
+                var countWrite = (uint) Math.Min(numberOfBytesToWrite, tempBuffer.Length);
+                MemoryHelpers.Read<byte>(new IntPtr(totalWrite + (byte*) buffer), tempBuffer, (int) countWrite);
+                sourceStream.Write(tempBuffer, 0, (int) countWrite);
                 numberOfBytesToWrite -= countWrite;
                 totalWrite += countWrite;
             }
+
             return totalWrite;
         }
 
         public ulong Seek(long offset, SeekOrigin origin)
         {
-            return (ulong)sourceStream.Seek(offset, origin);
+            return (ulong) sourceStream.Seek(offset, origin);
         }
 
         public void SetSize(ulong newSize)
@@ -84,15 +87,16 @@ namespace SharpGen.Runtime.Win32
             {
                 while (numberOfBytesToCopy > 0)
                 {
-                    int countCopy = (int)Math.Min((long)numberOfBytesToCopy, tempBuffer.Length);
-                    int count = sourceStream.Read(tempBuffer, 0, countCopy);
+                    var countCopy = (int) Math.Min((long) numberOfBytesToCopy, tempBuffer.Length);
+                    var count = sourceStream.Read(tempBuffer, 0, countCopy);
                     if (count == 0)
                         break;
-                    streamDest.Write((IntPtr)pBuffer, (uint)count);
-                    numberOfBytesToCopy -= (ulong)count;
-                    bytesWritten += (ulong)count;
+                    streamDest.Write((IntPtr) pBuffer, (uint) count);
+                    numberOfBytesToCopy -= (ulong) count;
+                    bytesWritten += (ulong) count;
                 }
             }
+
             return bytesWritten;
         }
 
@@ -118,17 +122,17 @@ namespace SharpGen.Runtime.Win32
 
         public StorageStatistics GetStatistics(StorageStatisticsFlags storageStatisticsFlags)
         {
-            long length = sourceStream.Length;
+            var length = sourceStream.Length;
             if (length == 0)
                 length = 0x7fffffff;
 
             return new StorageStatistics
-                {
-                    Type = 2, // IStream
-                    CbSize = (ulong)length,
-                    GrfLocksSupported = 2, // exclusive
-                    GrfMode = 0x00000002, // read-write
-                };
+            {
+                Type = 2, // IStream
+                CbSize = (ulong) length,
+                GrfLocksSupported = 2, // exclusive
+                GrfMode = 0x00000002,  // read-write
+            };
         }
 
         public IStream Clone()

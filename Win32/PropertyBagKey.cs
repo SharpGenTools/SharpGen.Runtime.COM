@@ -17,6 +17,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 namespace SharpGen.Runtime.Win32
 {
     /// <summary>
@@ -24,7 +25,7 @@ namespace SharpGen.Runtime.Win32
     /// </summary>
     /// <typeparam name="T1">The public type of this property.</typeparam>
     /// <typeparam name="T2">The marshaling type of this property.</typeparam>
-    public class PropertyBagKey<T1,T2> 
+    public class PropertyBagKey<T1, T2>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBagKey{T1,T2}"/> class.
