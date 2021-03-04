@@ -14,7 +14,7 @@ namespace SharpGen.Runtime.Win32
         public static RawBool[] ConvertToRawBoolArray(ReadOnlySpan<bool> array)
         {
             var temp = new RawBool[array.Length];
-            for (int i = 0; i < temp.Length; i++)
+            for (var i = 0; i < temp.Length; i++)
                 temp[i] = array[i];
             return temp;
         }
@@ -27,10 +27,9 @@ namespace SharpGen.Runtime.Win32
         public static bool[] ConvertToBoolArray(ReadOnlySpan<RawBool> array)
         {
             var temp = new bool[array.Length];
-            for (int i = 0; i < temp.Length; i++)
+            for (var i = 0; i < temp.Length; i++)
                 temp[i] = array[i];
             return temp;
         }
-
     }
 }

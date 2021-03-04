@@ -1,15 +1,18 @@
 <Project>
   <PropertyGroup>
     <VersionPrefix Condition="'$(APPVEYOR_REPO_TAG_NAME)' != ''">$(APPVEYOR_REPO_TAG_NAME)</VersionPrefix>
-    <VersionPrefix Condition="'$(VersionPrefix)' == ''">1.2</VersionPrefix>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">2.0</VersionPrefix>
     <VersionSuffix Condition="'$(CI)' == ''">local</VersionSuffix>
-    <VersionSuffix Condition="'$(CI)' != '' AND '$(APPVEYOR_REPO_TAG_NAME)' == ''">ci$(APPVEYOR_BUILD_NUMBER)</VersionSuffix>
+    <VersionSuffix Condition="'$(CI)' != '' AND '$(APPVEYOR_REPO_TAG_NAME)' == ''">ci.$(APPVEYOR_BUILD_NUMBER)</VersionSuffix>
     <Authors>jkoritzinsky</Authors>
     <Copyright>(c) 2018 Jeremy Koritzinsky</Copyright>
     <PackageLicenseUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM/blob/master/LICENSE.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM</PackageProjectUrl>
     <Tags>SharpGen;COM</Tags>
     <RepositoryUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM</RepositoryUrl>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>9</LangVersion>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <SharpGenVersion>2.0.0-ci.1020</SharpGenVersion>
   </PropertyGroup>
 </Project>

@@ -17,6 +17,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,6 @@ namespace SharpGen.Runtime.Win32
     internal class ComStringEnumerator : IEnumerator<string>, IEnumerable<string>
     {
         private readonly IEnumString enumString;
-        private string current;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComStringEnumerator"/> class.
@@ -39,7 +39,7 @@ namespace SharpGen.Runtime.Win32
         /// <param name="ptrToIEnumString">The PTR to I enum string.</param>
         public ComStringEnumerator(IntPtr ptrToIEnumString)
         {
-            enumString = (IEnumString)Marshal.GetObjectForIUnknown(ptrToIEnumString);
+            enumString = (IEnumString) Marshal.GetObjectForIUnknown(ptrToIEnumString);
         }
 
         public void Dispose()
@@ -51,9 +51,9 @@ namespace SharpGen.Runtime.Win32
             unsafe
             {
                 var output = new string[1];
-                int count = 0;
+                var count = 0;
                 var hasNext = enumString.Next(1, output, new IntPtr(&count)) == Result.Ok.Code;
-                current = hasNext ? output[0] : null;
+                Current = hasNext ? output[0] : null;
                 return hasNext;
             }
         }
@@ -63,15 +63,9 @@ namespace SharpGen.Runtime.Win32
             enumString.Reset();
         }
 
-        public string Current
-        {
-            get { return current; }
-        }
+        public string Current { get; private set; }
 
-        object IEnumerator.Current
-        {
-            get { return Current; }
-        }
+        object IEnumerator.Current => Current;
 
         public IEnumerator<string> GetEnumerator()
         {

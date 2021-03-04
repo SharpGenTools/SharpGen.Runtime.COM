@@ -17,6 +17,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 using System;
 using System.Runtime.InteropServices;
 
@@ -25,7 +26,7 @@ namespace SharpGen.Runtime.Win32
     /// <summary>
     /// Security attributes.
     /// </summary>
-    /// <unmanaged>SECURITY_ATTRIBUTES</unmanaged>	    
+    /// <unmanaged>SECURITY_ATTRIBUTES</unmanaged>
     [StructLayout(LayoutKind.Sequential, Pack = 0)]
     public struct SecurityAttributes
     {
@@ -40,6 +41,7 @@ namespace SharpGen.Runtime.Win32
         public IntPtr Descriptor;
 
         private int inheritHandle;
+
         /// <summary>
         /// Gets or sets a value indicating whether [inherit handle].
         /// </summary>
@@ -48,14 +50,8 @@ namespace SharpGen.Runtime.Win32
         /// </value>
         public bool InheritHandle
         {
-            get
-            {
-                return inheritHandle != 0;
-            }
-            set
-            {
-                inheritHandle = value ? 1 : 0;
-            }
+            get => inheritHandle != 0;
+            set => inheritHandle = value ? 1 : 0;
         }
     }
 }

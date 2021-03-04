@@ -20,27 +20,25 @@
 
 namespace SharpGen.Runtime.Win32
 {
-    public partial class ErrorCodeHelper
+    public class ErrorCodeHelper
     {
         /// <summary>
         /// Converts a win32 error code to a <see cref="Result"/>.
         /// </summary>
         /// <param name="errorCode">The error code.</param>
         /// <returns>A HRESULT code</returns>
-        public static Result ToResult(ErrorCode errorCode)
-        {
-            return ToResult((int)errorCode);
-        }
-        
+        public static Result ToResult(ErrorCode errorCode) => ToResult((int) errorCode);
+
         /// <summary>
         /// Converts a win32 error code to a <see cref="Result"/>.
         /// </summary>
         /// <param name="errorCode">The error code.</param>
         /// <returns>A HRESULT code</returns>
-        public static Result ToResult(int errorCode)
-        {
-            return new Result(((errorCode <= 0) ? unchecked((uint)errorCode) : ((unchecked((uint)errorCode) & 0x0000FFFF) | 0x80070000)));
-        }
+        public static Result ToResult(int errorCode) =>
+            new(
+                errorCode <= 0
+                    ? unchecked((uint) errorCode)
+                    : (unchecked((uint) errorCode) & 0x0000FFFF) | 0x80070000
+            );
     }
 }
-
