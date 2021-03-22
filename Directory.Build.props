@@ -13,6 +13,6 @@
     <LangVersion>9</LangVersion>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-    <SharpGenVersion>2.0.0-ci.1020</SharpGenVersion>
+    <SharpGenVersion>2.0.0-preview.1</SharpGenVersion>
   </PropertyGroup>
 </Project>
