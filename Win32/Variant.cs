@@ -22,6 +22,7 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using SharpGen.Runtime;
 
 namespace SharpGen.Runtime.Win32
 {
@@ -138,7 +139,7 @@ namespace SharpGen.Runtime.Win32
                             {
                                 Span<RawBool> span = stackalloc RawBool[size];
                                 MemoryHelpers.Read<RawBool>(recordValuePointer, span, size);
-                                return RawBoolHelpers.ConvertToBoolArray(span);
+                                return BooleanHelpers.ConvertToBoolArray(span);
                             }
                             case VariantElementType.Byte:
                             {

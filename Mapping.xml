@@ -86,7 +86,6 @@
     <context-clear/>
 
     <define enum="System.IO.SeekOrigin" sizeof="4" underlying="System.UInt32"  />
-    <define struct="SharpGen.Runtime.Win32.RawBool" sizeof="4" />
 
     <define interface="SharpGen.Runtime.ComObject" />
     <define interface="SharpGen.Runtime.WinRTObject" />
@@ -115,7 +114,7 @@
     <bind from="ULONG_PTR" to="System.UIntPtr" />
     <bind from="HANDLE_PTR" to="System.IntPtr" />
 
-    <bind from="BOOL" to="SharpGen.Runtime.Win32.RawBool"/>
+    <bind from="BOOL" to="SharpGen.Runtime.RawBool"/>
     <bind from="HANDLE" to="System.IntPtr" />
     <bind from="HRESULT" to="SharpGen.Runtime.Result" />
     <bind from="SIZE_T" to="SharpGen.Runtime.PointerSize" />
@@ -163,13 +162,13 @@
     <context-clear/>
 
     <context>Unknwnbase</context>
-    <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" callback-visibility="public" shadow-name="SharpGen.Runtime.ComObjectShadow" vtbl-name="SharpGen.Runtime.ComObjectVtbl" autogen-shadow="true" autogen-vtbl="false" />
+    <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" callback-visibility="public" shadow-name="SharpGen.Runtime.ComObjectShadow" vtbl-name="SharpGen.Runtime.ComObjectVtbl" autogen-shadow="true" autogen-vtbl="false" shadow-visibility="public" />
     <map method="IUnknown::.*" keep-implement-public="true" />
     <map method="IUnknown::QueryInterface" check="false" hidden="true" />
     <context-clear/>
 
     <context>inspectable</context>
-    <map interface="IInspectable" callback="true" callback-dual="true" callback-name="WinRTObject" callback-visibility="public" shadow-name="SharpGen.Runtime.InspectableShadow" vtbl-name="SharpGen.Runtime.InspectableVtbl" autogen-shadow="true" autogen-vtbl="false" />
+    <map interface="IInspectable" callback="true" callback-dual="true" callback-name="WinRTObject" callback-visibility="public" shadow-name="SharpGen.Runtime.InspectableShadow" vtbl-name="SharpGen.Runtime.InspectableVtbl" autogen-shadow="true" autogen-vtbl="false" shadow-visibility="public" />
     <map method="IInspectable::GetRuntimeClassName" keep-implement-public="true" />
     <map method="IInspectable::GetTrustLevel" keep-implement-public="true" />
     <map method="IInspectable::GetIids" property="false" visibility="private" hidden="true" />
