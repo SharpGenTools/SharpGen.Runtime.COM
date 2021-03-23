@@ -123,7 +123,6 @@
     <bind from="HRESULT" to="SharpGen.Runtime.Result" />
     <bind from="SIZE_T" to="SharpGen.Runtime.PointerSize" />
     <bind from="SSIZE_T" to="SharpGen.Runtime.PointerSize" />
-    <bind from="MSG" to="SharpGen.Runtime.Win32.NativeMessage" />
     <bind from="ULARGE_INTEGER" to="System.UInt64" />
     <bind from="LARGE_INTEGER" to="System.Int64" />
     <bind from="FILETIME" to="System.Int64" />
