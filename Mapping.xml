@@ -93,10 +93,7 @@
 
     <define interface="SharpGen.Runtime.Win32.PropertyBag"/>
     <define struct="SharpGen.Runtime.Win32.SecurityAttributes" sizeof="16" />
-    <define struct="SharpGen.Runtime.Win32.NativeMessage" sizeof="28" />
-
     <define struct="SharpGen.Runtime.Win32.Variant" sizeof="16"/>
-    <define struct="SharpGen.Runtime.Win32.BitmapInfoHeader" sizeof="40"/>
 
     <create class="SharpGen.Runtime.Win32.WinRTStrings" visibility="internal static" />
 
