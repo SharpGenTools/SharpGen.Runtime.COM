@@ -129,7 +129,7 @@ namespace SharpGen.Runtime.Win32
             return new StorageStatistics
             {
                 Type = 2, // IStream
-                CbSize = (ulong) length,
+                Size = (ulong) length,
                 GrfLocksSupported = 2, // exclusive
                 GrfMode = 0x00000002,  // read-write
             };
