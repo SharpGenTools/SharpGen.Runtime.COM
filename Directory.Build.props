@@ -6,13 +6,24 @@
     <VersionSuffix Condition="'$(CI)' != '' AND '$(APPVEYOR_REPO_TAG_NAME)' == ''">ci.$(APPVEYOR_BUILD_NUMBER)</VersionSuffix>
     <Authors>jkoritzinsky</Authors>
     <Copyright>(c) 2018 Jeremy Koritzinsky</Copyright>
-    <PackageLicenseUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM</PackageProjectUrl>
-    <Tags>SharpGen;COM</Tags>
-    <RepositoryUrl>https://github.com/jkoritzinsky/SharpGen.Runtime.COM</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/SharpGenTools/SharpGen.Runtime.COM</PackageProjectUrl>
+    <Tags>SharpGen;Native;COM</Tags>
+    <RepositoryUrl>https://github.com/SharpGenTools/SharpGen.Runtime.COM</RepositoryUrl>
     <LangVersion>9</LangVersion>
+    <SignAssembly Condition="'$(SignAssembly)' == ''">true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)SharpGenTools.snk</AssemblyOriginatorKeyFile>
+
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-    <SharpGenVersion>2.0.0-beta.4</SharpGenVersion>
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <SharpGenVersion>2.0.0-beta.5</SharpGenVersion>
   </PropertyGroup>
 </Project>

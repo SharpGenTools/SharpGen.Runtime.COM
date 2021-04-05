@@ -3,7 +3,7 @@
   <Sdk Name="SharpGenTools.Sdk" Version="$(SharpGenVersion)" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net45;netstandard1.1</TargetFrameworks>
     <RootNamespace>SharpGen.Runtime</RootNamespace>
     <Description>C# COM Interop classes for use with SharpGenTools generated libraries</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -11,6 +11,13 @@
 
   <ItemGroup>
     <SharpGenMapping Include="Mapping.xml" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(DisableSourceLink)' != 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0-beta-20204-02">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
