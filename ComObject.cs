@@ -85,7 +85,7 @@ namespace SharpGen.Runtime
         {
             var result = QueryInterface(typeof(T).GetTypeInfo().GUID, out var parentPtr);
             result.CheckError();
-            return FromPointer<T>(parentPtr);
+            return MarshallingHelpers.FromPointer<T>(parentPtr);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace SharpGen.Runtime
 
             var guid = typeof(T).GetTypeInfo().GUID;
             var result = (Result) Marshal.QueryInterface(comPointer, ref guid, out var pointerPtr);
-            return result.Failure ? null : FromPointer<T>(pointerPtr);
+            return result.Failure ? null : MarshallingHelpers.FromPointer<T>(pointerPtr);
         }
 
         ///<summary>
@@ -162,7 +162,7 @@ namespace SharpGen.Runtime
         /// <unmanaged-short>IUnknown::QueryInterface</unmanaged-short>
         public virtual T QueryInterfaceOrNull<T>() where T : ComObject
         {
-            return FromPointer<T>(QueryInterfaceOrNull(typeof(T).GetTypeInfo().GUID));
+            return MarshallingHelpers.FromPointer<T>(QueryInterfaceOrNull(typeof(T).GetTypeInfo().GUID));
         }
 
         ///<summary>
