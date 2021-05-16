@@ -72,6 +72,8 @@
 
   <include file="winstring.h" namespace="SharpGen.Runtime.Win32" output="Win32">
     <attach>WindowsCreateString</attach>
+    <attach>WindowsDeleteString</attach>
+    <attach>WindowsGetStringRawBuffer</attach>
   </include>
 
   <!-- SharpGen global naming -->
@@ -169,10 +171,9 @@
 
     <context>inspectable</context>
     <map interface="IInspectable" callback="true" callback-dual="true" callback-name="WinRTObject" callback-visibility="public" shadow-name="SharpGen.Runtime.InspectableShadow" vtbl-name="SharpGen.Runtime.InspectableVtbl" autogen-shadow="true" autogen-vtbl="false" shadow-visibility="public" />
-    <map method="IInspectable::GetRuntimeClassName" keep-implement-public="true" />
+    <map method="IInspectable::GetRuntimeClassName" property="false" keep-implement-public="true" />
     <map method="IInspectable::GetTrustLevel" keep-implement-public="true" />
     <map method="IInspectable::GetIids" property="false" visibility="private" hidden="true" />
-    <map param="IInspectable::GetIids::iids" attribute="out" />
     <context-clear/>
 
     <!-- Map IStream -->
@@ -215,7 +216,10 @@
     <context-clear/>
 
     <context>winstring</context>
-    <map function="WindowsCreateString" dll='"api-ms-win-core-winrt-string-l1"' group="SharpGen.Runtime.Win32.WinRTStrings" />
+    <map function="Windows.*String.*" dll='"api-ms-win-core-winrt-string-l1"' group="SharpGen.Runtime.Win32.WinRTStrings" />
+    <map param="WindowsCreateString::length" type="int" relation="length(sourceString)" />
+    <map param="WindowsCreateString::string" return="true" />
+    <map function="WindowsGetStringRawBuffer" type="INT_PTR" />
     <context-clear />
   </mapping>
 </config>

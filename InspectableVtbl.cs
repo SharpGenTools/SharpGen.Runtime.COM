@@ -20,19 +20,17 @@
 
 using System;
 using System.Runtime.InteropServices;
+using SharpGen.Runtime.Win32;
 
 namespace SharpGen.Runtime
 {
-    public class InspectableVtbl : ComObjectVtbl
+    public unsafe class InspectableVtbl : ComObjectVtbl
     {
         public InspectableVtbl(int numberOfCallbackMethods) : base(numberOfCallbackMethods + 3)
         {
-            unsafe
-            {
-                AddMethod(new GetIidsDelegate(GetIids), 3);
-                AddMethod(new GetRuntimeClassNameDelegate(GetRuntimeClassName), 4);
-                AddMethod(new GetTrustLevelDelegate(GetTrustLevel), 5);
-            }
+            AddMethod(new GetIidsDelegate(GetIids), 3);
+            AddMethod(new GetRuntimeClassNameDelegate(GetRuntimeClassName), 4);
+            AddMethod(new GetTrustLevelDelegate(GetTrustLevel), 5);
         }
 
         /// <unmanaged>
@@ -42,9 +40,9 @@ namespace SharpGen.Runtime
         /// )
         /// </unmanaged>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        private unsafe delegate int GetIidsDelegate(IntPtr thisPtr, int* iidCount, IntPtr* iids);
+        private delegate int GetIidsDelegate(IntPtr thisPtr, int* iidCount, IntPtr* iids);
 
-        private static unsafe int GetIids(IntPtr thisPtr, int* iidCount, IntPtr* iids)
+        private static int GetIids(IntPtr thisPtr, int* iidCount, IntPtr* iids)
         {
             try
             {
@@ -59,7 +57,7 @@ namespace SharpGen.Runtime
                 iids = (IntPtr*) Marshal.AllocCoTaskMem(IntPtr.Size * countGuids);
                 *iidCount = countGuids;
 
-                MemoryHelpers.CopyMemory((IntPtr) iids, new ReadOnlySpan<IntPtr>(container.Guids));
+                MemoryHelpers.CopyMemory(iids, new ReadOnlySpan<IntPtr>(container.Guids));
             }
             catch (Exception exception)
             {
@@ -73,19 +71,19 @@ namespace SharpGen.Runtime
         /// HRESULT STDMETHODCALLTYPE GetRuntimeClassName([out] __RPC__deref_out_opt HSTRING *className)
         /// </unmanaged>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        private unsafe delegate int GetRuntimeClassNameDelegate(IntPtr thisPtr, IntPtr* className);
+        private delegate int GetRuntimeClassNameDelegate(IntPtr thisPtr, IntPtr* className);
 
-        private static unsafe int GetRuntimeClassName(IntPtr thisPtr, IntPtr* className)
+        private static int GetRuntimeClassName(IntPtr thisPtr, IntPtr* className)
         {
             try
             {
                 var shadow = ToShadow<InspectableShadow>(thisPtr);
                 var callback = (IInspectable) shadow.Callback;
-                // Use the name of the callback class
 
+                // Use the name of the callback class
                 var name = callback.GetType().FullName;
-                Win32.WinRTStrings.WindowsCreateString(name, (uint) name.Length, out var str);
-                *className = str;
+
+                *className = WinRTStrings.WindowsCreateString(name);
             }
             catch (Exception exception)
             {
@@ -99,14 +97,14 @@ namespace SharpGen.Runtime
         /// HRESULT STDMETHODCALLTYPE GetTrustLevel(/* [out] */ __RPC__out TrustLevel *trustLevel);
         /// </unmanaged>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        private delegate int GetTrustLevelDelegate(IntPtr thisPtr, IntPtr trustLevel);
+        private delegate int GetTrustLevelDelegate(IntPtr thisPtr, int* trustLevel);
 
-        private static int GetTrustLevel(IntPtr thisPtr, IntPtr trustLevel)
+        private static int GetTrustLevel(IntPtr thisPtr, int* trustLevel)
         {
             try
             {
                 // Write full trust
-                Marshal.WriteInt32(trustLevel, (int) TrustLevel.FullTrust);
+                *trustLevel = (int) TrustLevel.FullTrust;
             }
             catch (Exception exception)
             {
