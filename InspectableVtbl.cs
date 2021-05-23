@@ -24,6 +24,7 @@ using SharpGen.Runtime.Win32;
 
 namespace SharpGen.Runtime
 {
+    [System.Diagnostics.DebuggerTypeProxy(typeof(CppObjectVtblDebugView))]
     public unsafe class InspectableVtbl : ComObjectVtbl
     {
         public InspectableVtbl(int numberOfCallbackMethods) : base(numberOfCallbackMethods + 3)
@@ -46,8 +47,7 @@ namespace SharpGen.Runtime
         {
             try
             {
-                var shadow = ToShadow<InspectableShadow>(thisPtr);
-                var callback = (IInspectable) shadow.Callback;
+                var callback = ToShadow<InspectableShadow>(thisPtr).Callback;
 
                 var container = callback.Shadow;
 
@@ -58,13 +58,15 @@ namespace SharpGen.Runtime
                 *iidCount = countGuids;
 
                 MemoryHelpers.CopyMemory(iids, new ReadOnlySpan<IntPtr>(container.Guids));
+
+                return Result.Ok.Code;
             }
             catch (Exception exception)
             {
-                return (int) Result.GetResultFromException(exception);
+                var @this = ToShadow<InspectableShadow>(thisPtr).Callback;
+                (@this as IExceptionCallback)?.RaiseException(exception);
+                return Result.GetResultFromException(exception).Code;
             }
-
-            return Result.Ok.Code;
         }
 
         /// <unmanaged>
@@ -77,20 +79,21 @@ namespace SharpGen.Runtime
         {
             try
             {
-                var shadow = ToShadow<InspectableShadow>(thisPtr);
-                var callback = (IInspectable) shadow.Callback;
+                var callback = ToShadow<InspectableShadow>(thisPtr).Callback;
 
                 // Use the name of the callback class
                 var name = callback.GetType().FullName;
 
                 *className = WinRTStrings.WindowsCreateString(name);
+
+                return Result.Ok.Code;
             }
             catch (Exception exception)
             {
-                return (int) Result.GetResultFromException(exception);
+                var @this = ToShadow<InspectableShadow>(thisPtr).Callback;
+                (@this as IExceptionCallback)?.RaiseException(exception);
+                return Result.GetResultFromException(exception).Code;
             }
-
-            return Result.Ok.Code;
         }
 
         /// <unmanaged>
@@ -103,15 +106,17 @@ namespace SharpGen.Runtime
         {
             try
             {
-                // Write full trust
-                *trustLevel = (int) TrustLevel.FullTrust;
+                var callback = (IInspectable) ToShadow<InspectableShadow>(thisPtr).Callback;
+
+                *trustLevel = (int) callback.GetTrustLevel();
+                return Result.Ok.Code;
             }
             catch (Exception exception)
             {
-                return (int) Result.GetResultFromException(exception);
+                var @this = ToShadow<InspectableShadow>(thisPtr).Callback;
+                (@this as IExceptionCallback)?.RaiseException(exception);
+                return Result.GetResultFromException(exception).Code;
             }
-
-            return Result.Ok.Code;
         }
     }
 }

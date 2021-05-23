@@ -10,8 +10,7 @@ namespace SharpGen.Runtime
         {
             get
             {
-                IntPtr iids = default;
-                GetIids(out var count, (IntPtr)(&iids));
+                GetIids(out var count, out var iids);
                 var iid = new Guid[count];
                 MemoryHelpers.Read<Guid>(iids, iid, (int) count);
                 Marshal.FreeCoTaskMem(iids);
@@ -23,7 +22,7 @@ namespace SharpGen.Runtime
         {
             get
             {
-                GetRuntimeClassName(out var nativeStringPtr);
+                var nativeStringPtr = GetRuntimeClassName();
                 using WinRTString nativeString = new(nativeStringPtr);
                 return nativeString.Value;
             }

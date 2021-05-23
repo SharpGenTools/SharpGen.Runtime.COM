@@ -25,12 +25,9 @@ namespace SharpGen.Runtime.Win32
         {
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void DisposeCore(IntPtr nativePointer, bool disposing)
         {
-            var handle = NativePointer;
-            if (handle != IntPtr.Zero)
-                WinRTStrings.WindowsDeleteString(handle);
-            base.Dispose(disposing);
+            WinRTStrings.WindowsDeleteString(nativePointer);
         }
 
         public override string ToString() => Value;

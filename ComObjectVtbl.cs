@@ -23,6 +23,7 @@ using System.Runtime.InteropServices;
 
 namespace SharpGen.Runtime
 {
+    [System.Diagnostics.DebuggerTypeProxy(typeof(CppObjectVtblDebugView))]
     public class ComObjectVtbl : CppObjectVtbl
     {
         public ComObjectVtbl(int numberOfCallbackMethods) : base(numberOfCallbackMethods + 3)

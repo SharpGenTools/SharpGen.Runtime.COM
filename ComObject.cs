@@ -21,7 +21,6 @@
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using SharpGen.Runtime.Diagnostics;
 
 namespace SharpGen.Runtime
 {
@@ -176,43 +175,12 @@ namespace SharpGen.Runtime
             NativePointer = parentPtr;
         }
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        /// <msdn-id>ms682317</msdn-id>
-        /// <unmanaged>IUnknown::Release</unmanaged>
-        /// <unmanaged-short>IUnknown::Release</unmanaged-short>
-        protected override unsafe void Dispose(bool disposing)
+        /// <inheritdoc />
+        protected override void DisposeCore(IntPtr nativePointer, bool disposing)
         {
-            // Only dispose non-zero object
-            if (NativePointer != IntPtr.Zero)
-            {
-                // If object is disposed by the finalizer, emits a warning
-                if (!disposing && Configuration.EnableTrackingReleaseOnFinalizer)
-                {
-                    if (!Configuration.EnableReleaseOnFinalizer)
-                    {
-                        var objectReference = ObjectTracker.Find(this);
-                        LogMemoryLeakWarning?.Invoke(
-                            $"Warning: Live ComObject [0x{NativePointer.ToInt64():X}], potential memory leak: {objectReference}"
-                        );
-                    }
-                }
-
-                // Release the object
-                if (disposing || Configuration.EnableReleaseOnFinalizer)
-                    ((IUnknown) this).Release();
-
-                // Untrack the object
-                if (Configuration.EnableObjectTracking)
-                    ObjectTracker.UnTrack(this);
-
-                // Set pointer to null (using protected members in order to avoid NativePointerUpdated* callbacks.
-                _nativePointer = (void*) 0;
-            }
-
-            base.Dispose(disposing);
+            // Release the object
+            if (disposing || Configuration.EnableReleaseOnFinalizer)
+                ((IUnknown) this).Release();
         }
 
         protected bool Equals(ComObject other)

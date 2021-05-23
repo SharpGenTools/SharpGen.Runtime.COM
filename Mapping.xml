@@ -164,13 +164,13 @@
     <context-clear/>
 
     <context>Unknwnbase</context>
-    <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" callback-visibility="public" shadow-name="SharpGen.Runtime.ComObjectShadow" vtbl-name="SharpGen.Runtime.ComObjectVtbl" autogen-shadow="true" autogen-vtbl="false" shadow-visibility="public" />
+    <map interface="IUnknown" callback="true" callback-dual="true" callback-name="ComObject" shadow-name="SharpGen.Runtime.ComObjectShadow" vtbl-name="SharpGen.Runtime.ComObjectVtbl" autogen-vtbl="false" shadow-visibility="public" />
     <map method="IUnknown::.*" keep-implement-public="true" />
     <map method="IUnknown::QueryInterface" check="false" hidden="true" />
     <context-clear/>
 
     <context>inspectable</context>
-    <map interface="IInspectable" callback="true" callback-dual="true" callback-name="WinRTObject" callback-visibility="public" shadow-name="SharpGen.Runtime.InspectableShadow" vtbl-name="SharpGen.Runtime.InspectableVtbl" autogen-shadow="true" autogen-vtbl="false" shadow-visibility="public" />
+    <map interface="IInspectable" callback="true" callback-dual="true" callback-name="WinRTObject" shadow-name="SharpGen.Runtime.InspectableShadow" vtbl-name="SharpGen.Runtime.InspectableVtbl" autogen-vtbl="false" shadow-visibility="public" />
     <map method="IInspectable::GetRuntimeClassName" property="false" keep-implement-public="true" />
     <map method="IInspectable::GetTrustLevel" keep-implement-public="true" />
     <map method="IInspectable::GetIids" property="false" visibility="private" hidden="true" />
@@ -195,22 +195,17 @@
     <map enum-item="STATFLAG_NONAME" name="NoName"/>
     <remove enum-item="STATFLAG_NOOPEN"/>
 
-    <map interface="ISequentialStream" name="IStreamBase" callback-visibility="public" callback="true" callback-dual="true" callback-name="ComStreamBase" autogen-shadow="true" />
-    <map param="ISequentialStream::Read::pcbRead" return="true"/>
-    <map param="ISequentialStream::Write::pcbWritten" return="true"/>
+    <map interface="ISequentialStream" name="IStreamBase" callback="true" callback-dual="true" callback-name="ComStreamBase" />
     <map method="ISequentialStream::.*" keep-implement-public="true"/>
 
-    <map interface="IStream" name="IStream" callback-visibility="public" callback="true" callback-dual="true" callback-name="ComStream" autogen-shadow="true" />
+    <map interface="IStream" name="IStream" callback="true" callback-dual="true" callback-name="ComStream" />
     <map param="IStream::Seek::dwOrigin" type="SHARPGEN_RUNTIME_SEEKORIGIN"/>
-    <map param="IStream::Seek::plibNewPosition" return="true"/>
     <map param="IStream::CopyTo::pcbRead" attribute="out" return="true"/>
     <map param="IStream::CopyTo::pcbWritten" attribute="out"/>
     <map param="IStream::Commit::grfCommitFlags" type="STGC"/>
     <map param="IStream::.*::dwLockType" type="LOCKTYPE"/>
     <map method="IStream::Stat" name="GetStatistics" />
-    <map param="IStream::Stat::pstatstg" attribute="out" return="true"/>
     <map param="IStream::Stat::grfStatFlag" type="STATFLAG"/>
-    <map param="IStream::Clone::ppstm" return="true"/>
     <map method="IStream::.*" keep-implement-public="true" property="false" />
 
     <context-clear/>
@@ -218,7 +213,6 @@
     <context>winstring</context>
     <map function="Windows.*String.*" dll='"api-ms-win-core-winrt-string-l1"' group="SharpGen.Runtime.Win32.WinRTStrings" />
     <map param="WindowsCreateString::length" type="int" relation="length(sourceString)" />
-    <map param="WindowsCreateString::string" return="true" />
     <map function="WindowsGetStringRawBuffer" type="INT_PTR" />
     <context-clear />
   </mapping>
