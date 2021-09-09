@@ -76,6 +76,10 @@
     <attach>WindowsGetStringRawBuffer</attach>
   </include>
 
+  <include file="propsys.h" namespace="SharpGen.Runtime.Win32" output="Win32">
+	<attach>IPropertyStore</attach>
+  </include>
+
   <!-- SharpGen global naming -->
   <naming />
 
@@ -95,7 +99,8 @@
     <define interface="SharpGen.Runtime.Win32.PropertyBag"/>
     <define struct="SharpGen.Runtime.Win32.SecurityAttributes" sizeof="16" />
     <define struct="SharpGen.Runtime.Win32.Variant" sizeof="16"/>
-
+	<define struct="SharpGen.Runtime.Win32.PropertyKey" sizeof="20"/>
+	  
     <create class="SharpGen.Runtime.Win32.WinRTStrings" visibility="internal static" />
 
   </extension>
@@ -132,7 +137,8 @@
 
     <bind from="VARIANT" to="SharpGen.Runtime.Win32.Variant"/>
     <bind from="PROPVARIANT" to="SharpGen.Runtime.Win32.Variant"/>
-
+	<bind from="PROPERTYKEY" to="SharpGen.Runtime.Win32.PropertyKey"/>
+	  
     <!-- Win32 structures -->
     <bind from="DISPPARAMS" to="System.Runtime.InteropServices.ComTypes.DISPPARAMS"/>
     <bind from="EXCEPINFO" to="System.Runtime.InteropServices.ComTypes.EXCEPINFO"/>
@@ -145,7 +151,6 @@
     <bind from="IBindCtx" to="SharpGen.Runtime.ComObject" />
     <bind from="IRpcStubBuffer" to="SharpGen.Runtime.ComObject"/>
     <bind from="IRpcChannelBuffer" to="SharpGen.Runtime.ComObject"/>
-    <bind from="IPropertyStore" to="SharpGen.Runtime.ComObject"/>
     <bind from="IPropertyBag2" to="SharpGen.Runtime.Win32.PropertyBag"/>
     <bind from="IClassFactory" to="SharpGen.Runtime.ComObject"/>
     <bind from="IEnumString" to="SharpGen.Runtime.ComObject"/>
